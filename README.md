@@ -1,6 +1,6 @@
 # mynlpbash (v2)
 
-**A collection of 100+ Bash scripts for NLP file processing, corpus analysis, classification data handling, parallel corpora, Indic language processing, terminal visualizations, and more.**
+**A collection of 115+ Bash scripts for NLP file processing, corpus analysis, classification data handling, parallel corpora, Indic language processing, terminal visualizations, and more.**
 
 Built with pure Bash + standard Unix tools (`awk`, `sed`, `sort`, `cut`, `tr`, `paste`). No Python or external dependencies required. Cross-platform: macOS + Ubuntu.
 
@@ -33,17 +33,17 @@ Every script carries a header declaring its origin:
 | Category | Count | Description |
 |----------|:-----:|-------------|
 | `file_processing/` | 16 | CSV/TSV/JSONL conversion, stats, filtering, joining, splitting |
-| `corpus_analysis/` | 15 | Word frequency, n-grams, vocabulary, tokenization, normalization |
+| `corpus_analysis/` | 19 | MATTR, readability, TF-IDF, PMI, word frequency, n-grams, vocab |
 | `parallel_corpora/` | 9 | Alignment checks, ratio analysis, synchronized operations |
 | `classification/` | 10 | Class distribution, confusion matrix, F1 reports, error analysis |
 | `nlp_specific/` | 7 | Sentiment stats, annotation agreement, label conversion, language detection |
 | `data_quality/` | 6 | Duplicates, missing values, outliers, encoding checks |
 | `format_conversion/` | 5 | CoNLL, BIO tags, FastText, LibSVM converters |
-| `viz/` | 8 | Terminal histograms, heatmaps, sparklines, box plots, scatter plots |
+| `viz/` | 9 | Dispersion plots, histograms, heatmaps, sparklines, box plots |
 | `unicode/` | 6 | Script detection, mixed-script analysis, Unicode normalization |
-| `indic/` | 12 | Tokenization, transliteration, code-mixing, akshar counting |
+| `indic/` | 23 | Tokenization, transliteration, ML wrappers, code-mixing |
 | `utils/` | 6 | File comparison, batch processing, report generation |
-| **Total** | **111** | |
+| **Total** | **116** | |
 
 ---
 
@@ -237,6 +237,10 @@ Analyze, tokenize, normalize, and search text corpora.
 | `ngram_extract.sh` | Extract n-grams (bigrams, trigrams, etc.) |
 | `vocab_extract.sh` | Extract vocabulary (sorted unique words) |
 | `corpus_stats.sh` | Tokens, types, TTR, hapax legomena |
+| `lexical_diversity.sh` | MATTR, MSTTR, and standard TTR lexical diversity |
+| `readability_scores.sh` | Flesch-Kincaid, Flesch Reading Ease, Gunning Fog |
+| `tfidf_extract.sh` | Extract top keywords using Term Frequency-Inverse Document Frequency |
+| `collocation_pmi.sh` | Extract significant bigrams using Pointwise Mutual Information (PMI) |
 | `sentence_split.sh` | Split into one sentence per line |
 | `tokenize.sh` | Word/character tokenization |
 | `normalize_text.sh` | Lowercase, strip accents, normalize whitespace |
@@ -251,7 +255,9 @@ Analyze, tokenize, normalize, and search text corpora.
 <details>
 <summary><strong>💡 Use Cases</strong></summary>
 
-- **Corpus linguistics**: Word frequency, n-grams, TTR, hapax legomena analysis
+- **Corpus linguistics**: Word frequency, n-grams, TTR, hapax legomena analysis, MATTR lexical diversity
+- **Information Retrieval**: TF-IDF keyword extraction, collocation PMI
+- **Readability assessment**: Flesch-Kincaid and Gunning Fog approximations
 - **Data preprocessing**: Tokenize, normalize, clean text before feeding to models
 - **Vocabulary analysis**: Extract vocabulary, check coverage, find stopwords
 - **Concordance studies**: KWIC search for keyword-in-context analysis
@@ -283,6 +289,18 @@ bash corpus_analysis/vocab_extract.sh -i corpus.txt -o vocab.txt
 # Full corpus statistics
 bash corpus_analysis/corpus_stats.sh -i corpus.txt
 #   Tokens: 230 | Types: 171 | TTR: 0.74 | Hapax: 151 (88.3%)
+
+# Lexical Diversity (MATTR / MSTTR)
+bash corpus_analysis/lexical_diversity.sh -i corpus.txt --window 50
+
+# Readability Scores (Flesch-Kincaid, Gunning Fog)
+bash corpus_analysis/readability_scores.sh -i corpus.txt
+
+# Extract Keywords (TF-IDF)
+bash corpus_analysis/tfidf_extract.sh -i corpus.txt -n 10 --lower
+
+# Extract Collocations (PMI)
+bash corpus_analysis/collocation_pmi.sh -i corpus.txt -n 10 --min-freq 2 --lower
 
 # Split text into sentences
 bash corpus_analysis/sentence_split.sh -i raw_text.txt -o sentences.txt
@@ -636,6 +654,7 @@ Terminal-based data visualization with Unicode characters and ANSI colors.
 | `scatter_plot.sh` | Terminal scatter plot on character grid |
 | `color_matrix.sh` | Color-coded confusion matrix (green = correct, red = error) |
 | `progress_dashboard.sh` | Live-updating progress bar with ETA |
+| `dispersion_plot.sh` | Terminal-based lexical dispersion plot (NLTK style) |
 
 <details>
 <summary><strong>💡 Use Cases</strong></summary>
@@ -689,6 +708,13 @@ bash viz/color_matrix.sh -g gold.txt -p pred.txt
 #   negative  ✅5   ·    ·    ·
 #   neutral   ❌1   ✅3  ❌1   ·
 #   positive   ·    ·   ✅5   ·
+
+# Lexical Dispersion plot (NLTK style)
+bash viz/dispersion_plot.sh -i corpus.txt -w "language,text,data" --width 40
+#   Word | 0                   |                  N
+#        | ----------------------------------------
+#   text |                         │ │    │         (3 hits)
+#   data |           │                    │         (2 hits)
 
 # Progress bar for batch processing
 for i in $(seq 1 100); do echo $i; sleep 0.05; done | bash viz/progress_dashboard.sh --total 100 --label "Training"
