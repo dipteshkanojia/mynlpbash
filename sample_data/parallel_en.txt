@@ -1,0 +1,15 @@
+The cat sat on the mat.
+Natural language processing is important.
+She walked to the store.
+The quick brown fox jumps over the lazy dog.
+Machine learning improves through experience.
+He read the newspaper every morning.
+Deep learning has revolutionized NLP.
+The children played in the park.
+Transformers are the dominant architecture.
+She wrote a beautiful poem.
+The restaurant served delicious food.
+Sentiment analysis determines emotional tone.
+He fixed the broken fence.
+Text classification assigns categories automatically.
+The dog barked at the mailman.

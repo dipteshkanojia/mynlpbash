@@ -1,0 +1,21 @@
+id,text,label
+1,"I absolutely love this product, it changed my life!",positive
+2,"Terrible experience. Would not recommend to anyone.",negative
+3,"It's okay I guess, nothing special really.",neutral
+4,"Best purchase ever! Amazing quality and fast shipping.",positive
+5,"Waste of money. Broke after two days of use.",negative
+6,"The product works as expected, does the job.",neutral
+7,"Oh sure, because waiting 3 weeks for delivery is GREAT service.",sarcasm
+8,"Wow what a fantastic way to waste my entire afternoon.",sarcasm
+9,"I'm so happy my order arrived damaged, truly wonderful.",sarcasm
+10,"Absolutely phenomenal! Five stars without hesitation!",positive
+11,"Decent quality for the price point offered here.",neutral
+12,"Never buying from this company again. Horrible.",negative
+13,"Yeah right, this is definitely worth twice the price.",sarcasm
+14,"Exceeded all my expectations. Truly remarkable product!",positive
+15,"Meh. It exists. That's about all I can say.",neutral
+16,"DO NOT BUY. Complete scam and waste of time.",negative
+17,"Super impressed with the build quality and design.",positive
+18,"Yeah because clearly quality control is their top priority.",sarcasm
+19,"Average product. Neither great nor terrible in any way.",neutral
+20,"Returned it immediately. Absolute garbage quality product.",negative
