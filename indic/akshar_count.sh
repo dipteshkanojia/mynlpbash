@@ -12,18 +12,26 @@ show_help() {
         "-h, --help"      "Show this help"
 }
 
-INPUT="" ; PER_LINE=0
+INPUT="" ; PER_LINE=0 ; USE_INDICNLP=0 ; LANG="hi"
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        -i|--input)  INPUT="$2"; shift 2 ;;
-        --per-line)  PER_LINE=1; shift ;;
-        -h|--help)   show_help; exit 0 ;;
+        -i|--input)       INPUT="$2"; shift 2 ;;
+        --per-line)       PER_LINE=1; shift ;;
+        --use-indicnlp)   USE_INDICNLP=1; shift ;;
+        -l|--lang)        LANG="$2"; shift 2 ;;
+        -h|--help)        show_help; exit 0 ;;
         *) die "Unknown option: $1" ;;
     esac
 done
 
 [[ -z "$INPUT" ]] && die "Input file required (-i)"
 require_file "$INPUT"
+
+if [[ $USE_INDICNLP -eq 1 ]]; then
+    SCRIPT_DIR="$(dirname "$0")"
+    ARGS=(-i "$INPUT" -l "$LANG" --count)
+    exec bash "$SCRIPT_DIR/indicnlp_syllabify.sh" "${ARGS[@]}"
+fi
 
 echo -e "${BOLD}═══ Akshar (Syllable) Count ═══${NC}"
 echo ""

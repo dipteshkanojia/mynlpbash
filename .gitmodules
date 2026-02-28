@@ -1,0 +1,6 @@
+[submodule "lib/indic_nlp_library"]
+	path = lib/indic_nlp_library
+	url = https://github.com/anoopkunchukuttan/indic_nlp_library.git
+[submodule "lib/indic_nlp_resources"]
+	path = lib/indic_nlp_resources
+	url = https://github.com/anoopkunchukuttan/indic_nlp_resources.git

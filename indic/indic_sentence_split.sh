@@ -8,22 +8,33 @@ show_help() {
     print_help "indic_sentence_split" "Split text on Indic sentence terminators (।, ॥, .!?)" \
         "indic_sentence_split.sh -i hindi.txt" \
         "-i, --input"     "Input text file" \
+        "--use-indicnlp"   "Use indic_nlp_library for ML-aware splitting" \
+        "-l, --lang"      "Language code for --use-indicnlp (default: hi)" \
         "-o, --output"    "Output file (default: stdout)" \
         "-h, --help"      "Show this help"
 }
 
-INPUT="" ; OUTPUT=""
+INPUT="" ; OUTPUT="" ; USE_INDICNLP=0 ; LANG="hi"
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        -i|--input)   INPUT="$2"; shift 2 ;;
-        -o|--output)  OUTPUT="$2"; shift 2 ;;
-        -h|--help)    show_help; exit 0 ;;
+        -i|--input)       INPUT="$2"; shift 2 ;;
+        --use-indicnlp)   USE_INDICNLP=1; shift ;;
+        -l|--lang)        LANG="$2"; shift 2 ;;
+        -o|--output)      OUTPUT="$2"; shift 2 ;;
+        -h|--help)        show_help; exit 0 ;;
         *) die "Unknown option: $1" ;;
     esac
 done
 
 [[ -z "$INPUT" ]] && die "Input file required (-i)"
 require_file "$INPUT"
+
+if [[ $USE_INDICNLP -eq 1 ]]; then
+    SCRIPT_DIR="$(dirname "$0")"
+    ARGS=(-i "$INPUT" -l "$LANG")
+    [[ -n "$OUTPUT" ]] && ARGS+=(-o "$OUTPUT")
+    exec bash "$SCRIPT_DIR/indicnlp_sentence_split.sh" "${ARGS[@]}"
+fi
 
 process() {
     awk '{

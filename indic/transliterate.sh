@@ -13,19 +13,28 @@ show_help() {
         "-h, --help"      "Show this help"
 }
 
-INPUT="" ; FROM="devanagari" ; OUTPUT=""
+INPUT="" ; FROM="devanagari" ; OUTPUT="" ; USE_INDICNLP=0 ; LANG="hi"
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        -i|--input)   INPUT="$2"; shift 2 ;;
-        --from)       FROM="$2"; shift 2 ;;
-        -o|--output)  OUTPUT="$2"; shift 2 ;;
-        -h|--help)    show_help; exit 0 ;;
+        -i|--input)       INPUT="$2"; shift 2 ;;
+        --from)           FROM="$2"; shift 2 ;;
+        --use-indicnlp)   USE_INDICNLP=1; shift ;;
+        -l|--lang)        LANG="$2"; shift 2 ;;
+        -o|--output)      OUTPUT="$2"; shift 2 ;;
+        -h|--help)        show_help; exit 0 ;;
         *) die "Unknown option: $1" ;;
     esac
 done
 
 [[ -z "$INPUT" ]] && die "Input file required (-i)"
 require_file "$INPUT"
+
+if [[ $USE_INDICNLP -eq 1 ]]; then
+    SCRIPT_DIR="$(dirname "$0")"
+    ARGS=(-i "$INPUT" -l "$LANG" --to-roman)
+    [[ -n "$OUTPUT" ]] && ARGS+=(-o "$OUTPUT")
+    exec bash "$SCRIPT_DIR/indicnlp_romanize.sh" "${ARGS[@]}"
+fi
 
 process() {
     if [[ "$FROM" == "devanagari" ]]; then

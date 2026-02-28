@@ -9,23 +9,35 @@ show_help() {
         "indic_tokenize.sh -i hindi.txt [-o tokens.txt]" \
         "-i, --input"     "Input text file" \
         "--keep-punct"     "Keep punctuation as separate tokens" \
+        "--use-indicnlp"   "Use indic_nlp_library for higher quality tokenization" \
+        "-l, --lang"      "Language code for --use-indicnlp (default: hi)" \
         "-o, --output"    "Output file (default: stdout)" \
         "-h, --help"      "Show this help"
 }
 
-INPUT="" ; OUTPUT="" ; KEEP_PUNCT=0
+INPUT="" ; OUTPUT="" ; KEEP_PUNCT=0 ; USE_INDICNLP=0 ; LANG="hi"
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        -i|--input)    INPUT="$2"; shift 2 ;;
-        --keep-punct)  KEEP_PUNCT=1; shift ;;
-        -o|--output)   OUTPUT="$2"; shift 2 ;;
-        -h|--help)     show_help; exit 0 ;;
+        -i|--input)       INPUT="$2"; shift 2 ;;
+        --keep-punct)     KEEP_PUNCT=1; shift ;;
+        --use-indicnlp)   USE_INDICNLP=1; shift ;;
+        -l|--lang)        LANG="$2"; shift 2 ;;
+        -o|--output)      OUTPUT="$2"; shift 2 ;;
+        -h|--help)        show_help; exit 0 ;;
         *) die "Unknown option: $1" ;;
     esac
 done
 
 [[ -z "$INPUT" ]] && die "Input file required (-i)"
 require_file "$INPUT"
+
+# Delegate to IndicNLP library if requested
+if [[ $USE_INDICNLP -eq 1 ]]; then
+    SCRIPT_DIR="$(dirname "$0")"
+    ARGS=(-i "$INPUT" -l "$LANG")
+    [[ -n "$OUTPUT" ]] && ARGS+=(-o "$OUTPUT")
+    exec bash "$SCRIPT_DIR/indicnlp_tokenize.sh" "${ARGS[@]}"
+fi
 
 process() {
     awk -v keep="$KEEP_PUNCT" '

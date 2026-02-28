@@ -17,7 +17,7 @@ show_help() {
         "-h, --help"         "Show this help"
 }
 
-INPUT="" ; OUTPUT="" ; NUKTA=1 ; CHANDRA=0 ; DIGITS=1 ; ZWJ=1 ; SPACES=1
+INPUT="" ; OUTPUT="" ; NUKTA=1 ; CHANDRA=0 ; DIGITS=1 ; ZWJ=1 ; SPACES=1 ; USE_INDICNLP=0 ; LANG="hi"
 while [[ $# -gt 0 ]]; do
     case "$1" in
         -i|--input)           INPUT="$2"; shift 2 ;;
@@ -29,6 +29,8 @@ while [[ $# -gt 0 ]]; do
         --strip-zwj)          ZWJ=1; shift ;;
         --no-strip-zwj)       ZWJ=0; shift ;;
         --collapse-spaces)    SPACES=1; shift ;;
+        --use-indicnlp)       USE_INDICNLP=1; shift ;;
+        -l|--lang)            LANG="$2"; shift 2 ;;
         -o|--output)          OUTPUT="$2"; shift 2 ;;
         -h|--help)            show_help; exit 0 ;;
         *) die "Unknown option: $1" ;;
@@ -37,6 +39,14 @@ done
 
 [[ -z "$INPUT" ]] && die "Input file required (-i)"
 require_file "$INPUT"
+
+if [[ $USE_INDICNLP -eq 1 ]]; then
+    SCRIPT_DIR="$(dirname "$0")"
+    ARGS=(-i "$INPUT" -l "$LANG")
+    [[ $NUKTA -eq 1 ]] && ARGS+=(--remove-nuktas)
+    [[ -n "$OUTPUT" ]] && ARGS+=(-o "$OUTPUT")
+    exec bash "$SCRIPT_DIR/indicnlp_normalize.sh" "${ARGS[@]}"
+fi
 
 process() {
     local cmd="cat '$INPUT'"
