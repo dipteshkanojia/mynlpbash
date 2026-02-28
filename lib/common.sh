@@ -194,6 +194,7 @@ cleanup_temps() {
     for t in "${TMPFILES[@]:-}"; do
         [[ -f "$t" ]] && rm -f "$t"
     done
+    return 0
 }
 trap cleanup_temps EXIT
 

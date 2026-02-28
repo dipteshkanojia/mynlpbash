@@ -43,7 +43,7 @@ Every script carries a header declaring its origin:
 | `unicode/` | 6 | Script detection, mixed-script analysis, Unicode normalization |
 | `indic/` | 23 | Tokenization, transliteration, ML wrappers, code-mixing |
 | `utils/` | 6 | File comparison, batch processing, report generation |
-| **Total** | **116** | |
+| **Total** | **117** | |
 
 ---
 
@@ -98,7 +98,7 @@ All scripts work on both **macOS** and **Ubuntu/Linux** via a compatibility laye
 
 ## 📋 Full Script Reference with Usage & Use Cases
 
-### File Processing (`file_processing/`) — 16 scripts
+### File Processing (`file_processing/`) — 17 scripts
 
 Convert, filter, join, split, validate, and analyze CSV/TSV/JSONL files.
 
@@ -120,6 +120,7 @@ Convert, filter, join, split, validate, and analyze CSV/TSV/JSONL files.
 | `csv_head_tail.sh` | Pretty-print first/last N rows |
 | `csv_validate.sh` | Validate CSV structural integrity |
 | `csv_transpose.sh` | Transpose rows ↔ columns |
+| `hf_download_csv.sh` | Download HuggingFace datasets straight to CSV |
 
 <details>
 <summary><strong>💡 Use Cases</strong></summary>
@@ -130,6 +131,7 @@ Convert, filter, join, split, validate, and analyze CSV/TSV/JSONL files.
 - **Schema validation**: `csv_validate` before feeding into ML pipelines
 - **Feature engineering**: `csv_join` to merge feature files, `csv_column_extract` to select columns
 - **Data cleaning**: `csv_deduplicate` to remove duplicate rows before training
+- **Dataset Streaming**: Use `hf_download_csv.sh` to grab HF datasets without parquet downloads
 </details>
 
 <details>
@@ -191,6 +193,9 @@ bash file_processing/csv_validate.sh -i data.csv
 
 # Transpose rows and columns
 bash file_processing/csv_transpose.sh -i data.csv -o transposed.csv
+
+# Download HuggingFace Dataset direct to CSV
+bash file_processing/hf_download_csv.sh -d "dair-ai/emotion" -n 1000 -o emotion.csv
 ```
 </details>
 
