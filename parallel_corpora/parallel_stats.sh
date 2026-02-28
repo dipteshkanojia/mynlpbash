@@ -32,7 +32,7 @@ echo ""
 
 for side in source target; do
     if [[ "$side" == "source" ]]; then f="$SRC"; else f="$TGT"; fi
-    local side_label=$(echo "$side" | awk '{print toupper(substr($0,1,1)) substr($0,2)}')
+    side_label=$(echo "$side" | awk '{print toupper(substr($0,1,1)) substr($0,2)}')
     echo -e "${BOLD}── ${side_label}: $(basename "$f") ──${NC}"
     awk '{
         tokens += NF

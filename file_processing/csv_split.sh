@@ -42,6 +42,7 @@ if [[ -n "$NROWS" ]]; then
     CHUNKS=$(( (TOTAL + NROWS - 1) / NROWS ))
     info "Splitting $TOTAL rows into chunks of $NROWS"
     chunk=0
+    row=0
     tail -n +2 "$INPUT" | while IFS= read -r line; do
         row=$(( row + 1 ))
         if (( (row - 1) % NROWS == 0 )); then
