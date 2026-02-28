@@ -8,7 +8,7 @@ Built with pure Bash + standard Unix tools (`awk`, `sed`, `sort`, `cut`, `tr`, `
 
 ## 🏗️ Project History
 
-**mynlpbash** started as a personal toolkit of **31 scripts** built by [me](https://github.com/dipteshkanojia) for everyday NLP file wrangling — CSV/TSV converters, corpus tools, basic splits, and data cleanup. To take this from a random folder in my old data to a full blown library of first 68 scripts, it took e 3 prompts and barely 2 hours of reviewing. Rest in v2 was built on top of that; later, I also connected this library to IndicNLP (Anoop Kunchukuttan; cited below) lifor Indic language processing.
+**mynlpbash** started as a personal toolkit of **31 scripts** built by [me](https://github.com/dipteshkanojia) for everyday NLP file wrangling — CSV/TSV converters, corpus tools, basic splits, and data cleanup. To take this from a random folder in my old data to a full blown library of first 68 scripts, it took e 3 prompts and barely 2 hours of reviewing. Rest in v2 was built on top of that; later, I also connected this library to IndicNLP (Anoop Kunchukuttan; cited below) for Indic language processing.
 
 To supercharge the library, I used **Claude Opus** to grow it to **100 scripts**, introducing analytics, terminal visualizations, confusion matrices, inter-annotator agreement metrics, statistical profilers, NLP format converters, Unicode/Indic language processing, and a cross-platform compatibility layer.
 
