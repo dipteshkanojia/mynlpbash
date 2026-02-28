@@ -47,36 +47,6 @@ Every script carries a header declaring its origin:
 
 ---
 
-## 🇮🇳 IndicNLP Library Integration
-
-**mynlpbash v2** integrates natively with the [indic_nlp_library](https://github.com/anoopkunchukuttan/indic_nlp_library) and [indic_nlp_resources](https://github.com/anoopkunchukuttan/indic_nlp_resources) to provide ML-backed functionality alongside the core pure-Bash scripts. 
-
-### Setup
-
-To enable the IndicNLP features, run the setup script once:
-```bash
-./setup_indicnlp.sh
-```
-This automatically clones the library and resources as Git submodules, installs the Python dependencies, and provides the environment variables (`lib/indicnlp_env.sh`).
-
-### Wrapper Scripts (11)
-These standalone scripts bridge the Python API to the `mynlpbash` CLI conventions:
-- `indicnlp_tokenize.sh` / `indicnlp_detokenize.sh` / `indicnlp_sentence_split.sh`
-- `indicnlp_normalize.sh` / `indicnlp_morph.sh` / `indicnlp_syllabify.sh`
-- `indicnlp_transliterate.sh` / `indicnlp_romanize.sh` / `indicnlp_script_unify.sh`
-- `indicnlp_langinfo.sh` (Check character parameters: *vowels, consonants, nuktas*)
-- `indicnlp_phonetic_sim.sh` (Compute phonetic similarity across scripts)
-
-### Delegation Flags
-5 existing core Bash scripts have been enhanced with a `--use-indicnlp` flag, which automatically delegates the processing to the advanced Python ML models when specified:
-- `indic_tokenize.sh`
-- `indic_sentence_split.sh` 
-- `devanagari_normalize.sh`
-- `transliterate.sh` 
-- `akshar_count.sh`
-
----
-
 ## 🚀 Quick Start
 
 ```bash
@@ -223,6 +193,36 @@ bash file_processing/csv_validate.sh -i data.csv
 bash file_processing/csv_transpose.sh -i data.csv -o transposed.csv
 ```
 </details>
+
+---
+
+## 🇮🇳 IndicNLP Library Integration
+
+**mynlpbash v2** integrates natively with the [indic_nlp_library](https://github.com/anoopkunchukuttan/indic_nlp_library) and [indic_nlp_resources](https://github.com/anoopkunchukuttan/indic_nlp_resources) to provide ML-backed functionality alongside the core pure-Bash scripts. 
+
+### Setup
+
+To enable the IndicNLP features, run the setup script once:
+```bash
+./setup_indicnlp.sh
+```
+This automatically clones the library and resources as Git submodules, installs the Python dependencies, and provides the environment variables (`lib/indicnlp_env.sh`).
+
+### Wrapper Scripts (11)
+These standalone scripts bridge the Python API to the `mynlpbash` CLI conventions:
+- `indicnlp_tokenize.sh` / `indicnlp_detokenize.sh` / `indicnlp_sentence_split.sh`
+- `indicnlp_normalize.sh` / `indicnlp_morph.sh` / `indicnlp_syllabify.sh`
+- `indicnlp_transliterate.sh` / `indicnlp_romanize.sh` / `indicnlp_script_unify.sh`
+- `indicnlp_langinfo.sh` (Check character parameters: *vowels, consonants, nuktas*)
+- `indicnlp_phonetic_sim.sh` (Compute phonetic similarity across scripts)
+
+### Delegation Flags
+5 existing core Bash scripts have been enhanced with a `--use-indicnlp` flag, which automatically delegates the processing to the advanced Python ML models when specified:
+- `indic_tokenize.sh`
+- `indic_sentence_split.sh` 
+- `devanagari_normalize.sh`
+- `transliterate.sh` 
+- `akshar_count.sh`
 
 ---
 
