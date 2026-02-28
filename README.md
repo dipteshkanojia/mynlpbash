@@ -2,7 +2,7 @@
 
 **A collection of 68 Bash scripts for NLP file processing, corpus analysis, classification data handling, and more.**
 
-Built with pure Bash + standard Unix tools (`awk`, `sed`, `sort`, `cut`, `tr`, `paste`). No Python or external dependencies required.
+Built with pure Bash + standard Unix tools (`awk`, `sed`, `sort`, `cut`, `tr`, `paste`). No Python or external dependencies required. Taking this library from a random folder in my old data to THIS full fledged repo needed a total of 3 prompts with Claude Opus. :)
 
 ---
 

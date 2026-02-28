@@ -1,0 +1,15 @@
+मैंने आज एक new laptop खरीदा।
+This is a simple English sentence.
+यह एक mixed language sentence है जिसमें Hindi और English दोनों हैं।
+Machine learning बहुत interesting field है।
+आजकल AI technology बहुत तेजी से develop हो रही है।
+कल मैं office जाऊंगा और meeting attend करूंगा।
+The weather today is बहुत अच्छा।
+NLP models को train करने के लिए large dataset चाहिए।
+हमारे school में new computer lab बनी है।
+Data science में statistics और programming दोनों important हैं।
+भारत में software industry बहुत बड़ी है।
+Please मुझे यह book दे दीजिए।
+मैंने yesterday एक interesting movie देखी।
+Deep learning neural networks पर based है।
+हिंदी text processing करना challenging है।

@@ -13,6 +13,93 @@
 
 set -euo pipefail
 
+# ══════════════════════════════════════════════════════════════════════════════
+# CROSS-PLATFORM LAYER (Claude Opus v2) — macOS + Ubuntu compatibility
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ── OS detection ──────────────────────────────────────────────────────────────
+MYNLP_OS="unknown"
+case "$(uname -s)" in
+    Darwin*) MYNLP_OS="darwin" ;;
+    Linux*)  MYNLP_OS="linux" ;;
+esac
+
+# ── Force UTF-8 locale ───────────────────────────────────────────────────────
+export LC_ALL="${LC_ALL:-en_US.UTF-8}"
+export LANG="${LANG:-en_US.UTF-8}"
+
+# ── Portable sed in-place ────────────────────────────────────────────────────
+portable_sed_i() {
+    if [[ "$MYNLP_OS" == "darwin" ]]; then
+        sed -i '' "$@"
+    else
+        sed -i "$@"
+    fi
+}
+
+# ── Portable shuffle ─────────────────────────────────────────────────────────
+portable_shuf() {
+    if command -v gshuf &>/dev/null; then gshuf "$@"
+    elif command -v shuf &>/dev/null; then shuf "$@"
+    else awk 'BEGIN{srand()}{print rand()"\t"$0}' "$@" | sort -n | cut -f2-
+    fi
+}
+
+# ── Portable stat (file size in bytes) ────────────────────────────────────────
+portable_filesize() {
+    if [[ "$MYNLP_OS" == "darwin" ]]; then
+        stat -f%z "$1" 2>/dev/null || wc -c < "$1" | tr -d ' '
+    else
+        stat -c%s "$1" 2>/dev/null || wc -c < "$1" | tr -d ' '
+    fi
+}
+
+# ── Portable date ────────────────────────────────────────────────────────────
+portable_date() {
+    if [[ "$MYNLP_OS" == "darwin" ]]; then
+        if command -v gdate &>/dev/null; then gdate "$@"; else date "$@"; fi
+    else
+        date "$@"
+    fi
+}
+
+# ── Portable md5 ─────────────────────────────────────────────────────────────
+portable_md5() {
+    if [[ "$MYNLP_OS" == "darwin" ]]; then
+        md5 -q "$@" 2>/dev/null || md5sum "$@" | awk '{print $1}'
+    else
+        md5sum "$@" | awk '{print $1}'
+    fi
+}
+
+# ── Portable readlink ────────────────────────────────────────────────────────
+portable_realpath() {
+    if command -v grealpath &>/dev/null; then grealpath "$@"
+    elif command -v realpath &>/dev/null; then realpath "$@"
+    else
+        local f="$1"
+        cd "$(dirname "$f")" && echo "$(pwd)/$(basename "$f")"
+    fi
+}
+
+# ── UTF-8 character count (not byte count) ───────────────────────────────────
+char_count_utf8() {
+    echo -n "$1" | awk '{print length}'
+}
+
+# ── Byte length ──────────────────────────────────────────────────────────────
+byte_length() {
+    echo -n "$1" | wc -c | tr -d ' '
+}
+
+# ── Terminal width ───────────────────────────────────────────────────────────
+term_width() {
+    local w
+    w=$(tput cols 2>/dev/null || echo 80)
+    echo "$w"
+}
+
+
 # ── Colors ────────────────────────────────────────────────────────────────────
 if [[ -t 1 ]]; then
     RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'
