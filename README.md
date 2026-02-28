@@ -1,6 +1,6 @@
 # mynlpbash (v2)
 
-**A collection of 100 Bash scripts for NLP file processing, corpus analysis, classification data handling, parallel corpora, Indic language processing, terminal visualizations, and more.**
+**A collection of 100+ Bash scripts for NLP file processing, corpus analysis, classification data handling, parallel corpora, Indic language processing, terminal visualizations, and more.**
 
 Built with pure Bash + standard Unix tools (`awk`, `sed`, `sort`, `cut`, `tr`, `paste`). No Python or external dependencies required. Cross-platform: macOS + Ubuntu.
 
@@ -8,7 +8,7 @@ Built with pure Bash + standard Unix tools (`awk`, `sed`, `sort`, `cut`, `tr`, `
 
 ## 🏗️ Project History
 
-**mynlpbash** started as a personal toolkit of **31 scripts** built by [Diptesh](https://github.com/dipteshkanojia) for everyday NLP file wrangling — CSV/TSV converters, corpus tools, basic splits, and data cleanup. To take this from a random folder in my old data to a full blown library of first 68 scripts, it took e 3 prompts and barely 2 hours of reviewing. Rest in v2 was built on top of that.
+**mynlpbash** started as a personal toolkit of **31 scripts** built by [me](https://github.com/dipteshkanojia) for everyday NLP file wrangling — CSV/TSV converters, corpus tools, basic splits, and data cleanup. To take this from a random folder in my old data to a full blown library of first 68 scripts, it took e 3 prompts and barely 2 hours of reviewing. Rest in v2 was built on top of that; later, I also connected this library to IndicNLP (Anoop Kunchukuttan; cited below) lifor Indic language processing.
 
 To supercharge the library, I used **Claude Opus** to grow it to **100 scripts**, introducing analytics, terminal visualizations, confusion matrices, inter-annotator agreement metrics, statistical profilers, NLP format converters, Unicode/Indic language processing, and a cross-platform compatibility layer.
 
@@ -1150,6 +1150,17 @@ Removed: 44/146 stopwords (30.1%)
 ```
 Input:  café résumé naïve
 Output: cafe resume naive
+```
+
+If you use IndicNLP Library from here, please cite:
+
+```
+@misc{kunchukuttan2020indicnlp,
+author = "Anoop Kunchukuttan",
+title = "{The IndicNLP Library}",
+year = "2020",
+howpublished={\url{https://github.com/anoopkunchukuttan/indic_nlp_library/blob/master/docs/indicnlp.pdf}}
+}
 ```
 
 ---
